@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+SQLAlchemy
+psycopg2-binary
+Werkzeug
+pandas
+Flask-WTF 
+WTForms

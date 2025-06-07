@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización - Centro de Investigación del Cáncer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.5rem 1rem;
+            margin: 0.2rem;
+            border-radius: 0.375rem;
+            background-color: #e5e7eb;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #dc2626;
+            color: white;
+        }
+        .dataTables_wrapper .dataTables_filter input {
+            border: 1px solid #d1d5db;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-red-800 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Centro de Investigación del Cáncer</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="{{ url_for('home') }}" class="hover:text-red-200">Inicio</a></li>
+                    <li><a href="{{ url_for('information') }}" class="hover:text-red-200">Información</a></li>
+                    <li><a href="{{ url_for('visualization') }}" class="hover:text-red-200">Visualización</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="hover:text-red-200">Contacto</a></li>
+                    <li><a href="{{ url_for('auth') }}" class="hover:text-red-200">Iniciar Sesión/Registrarse</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-5xl font-serif font-bold mb-6">Visualización de Datos del Cáncer</h1>
+            <p class="text-lg md:text-xl mb-8 text-blue-100">
+                Explora estadísticas globales del cáncer a través de visualizaciones interactivas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
+            <h2 class="text-xl font-bold mb-4">Filtros</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="regionFilter" class="block text-sm font-medium text-gray-700">Región</label>
+                    <select id="regionFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="">Todas las regiones</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="yearFilter" class="block text-sm font-medium text-gray-700">Año</label>
+                    <select id="yearFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="">Todos los años</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cancerTypeFilter" class="block text-sm font-medium text-gray-700">Tipo de Cáncer</label>
+                    <select id="cancerTypeFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="">Todos los tipos</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="genderFilter" class="block text-sm font-medium text-gray-700">Género</label>
+                    <select id="genderFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="">Todos los géneros</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table Section -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table id="cancerTable" class="display w-full">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th>ID</th>
+                        <th>Edad</th>
+                        <th>Género</th>
+                        <th>Región</th>
+                        <th>Año</th>
+                        <th>Riesgo Genético</th>
+                        <th>Contaminación</th>
+                        <th>Alcohol</th>
+                        <th>Tabaco</th>
+                        <th>Obesidad</th>
+                        <th>Tipo</th>
+                        <th>Etapa</th>
+                        <th>Costo (USD)</th>
+                        <th>Sobrevivencia (Años)</th>
+                        <th>Severidad</th>
+                    </tr>
+                </thead>
+                <tbody id="cancerDataBody">
+                    <tr><td colspan="15" class="text-center">Cargando datos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="container mx-auto px-4 py-6">
+        <h2 class="text-2xl font-bold mb-6">Análisis Visual</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Gráfico 1: Distribución por Tipo de Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Distribución por Tipo de Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 2: Distribución por Etapa del Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Distribución por Etapa del Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 3: Distribución por Género -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Distribución por Género</h3>
+                <div class="chart-container">
+                    <canvas id="chart3"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 4: Distribución por Región -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Distribución por Región</h3>
+                <div class="chart-container">
+                    <canvas id="chart4"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 5: Tendencia de Casos por Año -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Tendencia de Casos por Año</h3>
+                <div class="chart-container">
+                    <canvas id="chart5"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 6: Distribución de Edad -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Distribución de Edad</h3>
+                <div class="chart-container">
+                    <canvas id="chart6"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 7: Costo Promedio del Tratamiento por Tipo de Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Costo Promedio del Tratamiento por Tipo de Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart7"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 8: Años de Supervivencia por Etapa del Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Años de Supervivencia por Etapa del Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart8"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 9: Riesgo Genético por Tipo de Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Riesgo Genético por Tipo de Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart9"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 10: Impacto de Factores Ambientales -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Impacto de Factores Ambientales</h3>
+                <div class="chart-container">
+                    <canvas id="chart10"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 11: Puntuación de Severidad por Tipo de Cáncer -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Puntuación de Severidad por Tipo de Cáncer</h3>
+                <div class="chart-container">
+                    <canvas id="chart11"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico 12: Relación entre Costo del Tratamiento y Años de Supervivencia -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Costo del Tratamiento vs. Años de Supervivencia</h3>
+                <div class="chart-container">
+                    <canvas id="chart12"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+            let cancerData = [];
+    let charts = {};
+    let dataTableInitialized = false;
+
+    $(document).ready(function() {
+        initializeDataTable();
+        loadFilters();
+    });
+
+    function initializeDataTable() {
+    if ($('#cancerTable').length) {
+        // Primero destruye la tabla si ya existe
+        if ($.fn.DataTable.isDataTable('#cancerTable')) {
+            $('#cancerTable').DataTable().destroy();
+        }
+
+        // Limpia el cuerpo de la tabla
+        $('#cancerDataBody').empty();
+
+        const table = $('#cancerTable').DataTable({
+            pageLength: 10,
+            columns: [
+                { data: 'patient_id' },
+                { data: 'age' },
+                { data: 'gender' },
+                { data: 'region' },
+                { data: 'year' },
+                { data: 'genetic_risk' },
+                { data: 'air_pollution' },
+                { data: 'alcohol_consumption' },
+                { data: 'smoking' },
+                { data: 'obesity_level' },
+                { data: 'cancer_type' },
+                { data: 'cancer_stage' },
+                { 
+                    data: 'treatment_cost',
+                    render: $.fn.dataTable.render.number(',', '.', 2, '$')
+                },
+                { data: 'survival_years' },
+                { data: 'severity_score' }
+            ],
+            responsive: true,
+            language: {
+                // Elimina la referencia externa y usa configuración manual
+                "decimal": ",",
+                "thousands": ".",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            initComplete: function() {
+                dataTableInitialized = true;
+                loadInitialData(this);
+            },
+            ajax: {
+                url: '/api/cancer_data',
+                dataSrc: '',
+                error: function(xhr, error, thrown) {
+                    console.error('Error loading table data:', error);
+                    $('#cancerDataBody').html(
+                        '<tr><td colspan="15" class="text-center">Error al cargar los datos</td></tr>'
+                    );
+                }
+            }
+        });
+    }
+}
+
+function loadInitialData(table) {
+    fetch('/api/cancer_data')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            if (!Array.isArray(data)) {
+                throw new Error('Expected an array of data');
+            }
+            
+            // Verifica que los datos tengan la estructura correcta
+            if (data.length > 0) {
+                const firstItem = data[0];
+                const expectedProps = [
+                    'patient_id', 'age', 'gender', 'region', 'year',
+                    'genetic_risk', 'air_pollution', 'alcohol_consumption',
+                    'smoking', 'obesity_level', 'cancer_type', 'cancer_stage',
+                    'treatment_cost', 'survival_years', 'severity_score'
+                ];
+                
+                expectedProps.forEach(prop => {
+                    if (!firstItem.hasOwnProperty(prop)) {
+                        console.warn(`Propiedad faltante: ${prop}`);
+                        // Añade la propiedad faltante con valor null
+                        data.forEach(item => item[prop] = item[prop] || null);
+                    }
+                });
+            }
+            
+            cancerData = data;
+            table.clear().rows.add(data).draw();
+            updateCharts();
+        })
+        .catch(error => {
+            console.error('Error loading initial data:', error);
+            showError('Error al cargar los datos iniciales');
+            
+            // Muestra datos de ejemplo si hay error
+            const sampleData = [{
+                patient_id: "N/A", age: 0, gender: "N/A", region: "N/A", year: 0,
+                genetic_risk: 0, air_pollution: 0, alcohol_consumption: 0,
+                smoking: 0, obesity_level: 0, cancer_type: "N/A", cancer_stage: "N/A",
+                treatment_cost: 0, survival_years: 0, severity_score: 0
+            }];
+            
+            table.clear().rows.add(sampleData).draw();
+        });
+}
+function reloadDataWithFilters() {
+    const table = $('#cancerTable').DataTable();
+    const params = new URLSearchParams({
+        region: document.getElementById('regionFilter').value || '',
+        year: document.getElementById('yearFilter').value || '',
+        cancer_type: document.getElementById('cancerTypeFilter').value || '',
+        gender: document.getElementById('genderFilter').value || ''
+    });
+
+    // Muestra estado de carga
+    table.clear().draw();
+    $('#cancerDataBody').html(
+        '<tr><td colspan="15" class="text-center">Cargando datos...</td></tr>'
+    );
+
+    fetch(`/api/cancer_data?${params.toString()}`)
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (!Array.isArray(data)) {
+                throw new Error('Los datos no son un array válido');
+            }
+
+            // Verifica y normaliza la estructura de datos
+            const normalizedData = data.map(item => {
+                return {
+                    patient_id: item.patient_id || 'N/A',
+                    age: item.age || 0,
+                    gender: item.gender || 'Desconocido',
+                    region: item.region || 'Desconocido',
+                    year: item.year || 0,
+                    genetic_risk: item.genetic_risk || 0,
+                    air_pollution: item.air_pollution || 0,
+                    alcohol_consumption: item.alcohol_consumption || 0,
+                    smoking: item.smoking || 0,
+                    obesity_level: item.obesity_level || 0,
+                    cancer_type: item.cancer_type || 'Desconocido',
+                    cancer_stage: item.cancer_stage || 'Desconocido',
+                    treatment_cost: item.treatment_cost || 0,
+                    survival_years: item.survival_years || 0,
+                    severity_score: item.severity_score || 0
+                };
+            });
+
+            cancerData = normalizedData;
+            table.clear().rows.add(normalizedData).draw();
+            updateCharts();
+        })
+        .catch(error => {
+            console.error('Error al cargar datos filtrados:', error);
+            showError('Error al cargar datos filtrados');
+            table.clear().draw();
+        });
+}
+    async function loadFilters() {
+        try {
+            const response = await fetch('/api/filtros');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            if (data.error) throw new Error(data.error);
+
+            populateFilter('regionFilter', data.regions);
+            populateFilter('yearFilter', data.years);
+            populateFilter('cancerTypeFilter', data.cancer_types);
+            populateFilter('genderFilter', data.genders);
+
+            setupFilterListeners();
+        } catch (error) {
+            console.error('Error al cargar los filtros:', error);
+            showError('Error al cargar los filtros. Intente recargar la página.');
+        }
+    }
+function verifyDataStructure(data) {
+    if (!Array.isArray(data)) {
+        console.error('Los datos no son un array');
+        return false;
+    }
+
+    if (data.length === 0) {
+        console.warn('El array de datos está vacío');
+        return true;
+    }
+
+    const sampleItem = data[0];
+    const requiredFields = [
+        'patient_id', 'age', 'gender', 'region', 'year',
+        'genetic_risk', 'air_pollution', 'alcohol_consumption',
+        'smoking', 'obesity_level', 'cancer_type', 'cancer_stage',
+        'treatment_cost', 'survival_years', 'severity_score'
+    ];
+
+    let isValid = true;
+    requiredFields.forEach(field => {
+        if (!sampleItem.hasOwnProperty(field)) {
+            console.error(`Campo faltante: ${field}`);
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        console.error('Ejemplo de estructura esperada:', {
+            patient_id: "PT0000001",
+            age: 45,
+            gender: "Masculino",
+            region: "América del Norte",
+            year: 2020,
+            genetic_risk: 5.2,
+            air_pollution: 3.1,
+            alcohol_consumption: 2.5,
+            smoking: 4.0,
+            obesity_level: 3.2,
+            cancer_type: "Pulmón",
+            cancer_stage: "III",
+            treatment_cost: 15000.50,
+            survival_years: 3.5,
+            severity_score: 7.2
+        });
+    }
+
+    return isValid;
+}
+
+    function populateFilter(filterId, options) {
+        const filter = document.getElementById(filterId);
+        if (!filter) return;
+
+        filter.innerHTML = '<option value="">Todos</option>';
+        options.forEach(option => {
+            const optElement = document.createElement('option');
+            optElement.value = option;
+            optElement.textContent = option;
+            filter.appendChild(optElement);
+        });
+    }
+
+    function setupFilterListeners() {
+        ['regionFilter', 'yearFilter', 'cancerTypeFilter', 'genderFilter'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', () => {
+                if (dataTableInitialized) {
+                    reloadDataWithFilters();
+                }
+            });
+        });
+    }
+
+        // Actualizar todos los gráficos
+        // Función principal para actualizar todos los gráficos
+function updateCharts() {
+    console.log("Actualizando gráficos con", cancerData.length, "registros");
+    
+    // Destruye gráficos existentes
+    Object.values(charts).forEach(chart => chart && chart.destroy());
+    charts = {};
+
+    if (cancerData.length === 0) {
+        console.warn("No hay datos para generar gráficos");
+        return;
+    }
+
+    try {
+        // 1. Distribución por Tipo de Cáncer (Pie)
+        createDistributionChart('chart1', 'cancer_type', 'Distribución por Tipo de Cáncer', 'pie');
+        
+        // 2. Distribución por Etapa (Doughnut)
+        createDistributionChart('chart2', 'cancer_stage', 'Distribución por Etapa', 'doughnut');
+        
+        // 3. Distribución por Género (Bar)
+        createDistributionChart('chart3', 'gender', 'Distribución por Género', 'bar');
+        
+        // 4. Distribución por Región (Bar Horizontal)
+        createDistributionChart('chart4', 'region', 'Distribución por Región', 'bar', true);
+        
+        // 5. Casos por Año (Line)
+        createTrendChart('chart5', 'year', 'Tendencia de Casos por Año');
+        
+        // 6. Distribución de Edad (Histogram)
+        createAgeHistogram('chart6');
+        
+        // 7. Costo Promedio por Tipo (Bar)
+        createAverageChart('chart7', 'cancer_type', 'treatment_cost', 'Costo Promedio (USD)', 'Costo por Tipo de Cáncer');
+        
+        // 8. Supervivencia por Etapa (Bar)
+        createAverageChart('chart8', 'cancer_stage', 'survival_years', 'Años de Supervivencia', 'Supervivencia por Etapa');
+        
+        // 9. Riesgo Genético por Tipo (Bar)
+        createAverageChart('chart9', 'cancer_type', 'genetic_risk', 'Nivel de Riesgo', 'Riesgo Genético por Tipo');
+        
+        // 10. Factores de Riesgo (Radar)
+        createRiskFactorsChart('chart10');
+        
+        // 11. Severidad por Tipo (Bar)
+        createAverageChart('chart11', 'cancer_type', 'severity_score', 'Puntuación', 'Severidad por Tipo');
+        
+        // 12. Costo vs Supervivencia (Scatter)
+        createScatterChart('chart12', 'treatment_cost', 'survival_years', 
+                         'Costo (USD)', 'Años de Supervivencia', 'Costo vs Supervivencia');
+
+    } catch (error) {
+        console.error("Error al crear gráficos:", error);
+    }
+}
+
+// Función para gráficos de distribución
+function createDistributionChart(canvasId, property, title, chartType, horizontal = false) {
+    const counts = countByProperty(property);
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    const colors = getColors(Object.keys(counts));
+    
+    const config = {
+        type: chartType,
+        data: {
+            labels: Object.keys(counts),
+            datasets: [{
+                label: title,
+                data: Object.values(counts),
+                backgroundColor: colors.background,
+                borderColor: colors.border,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    font: { size: 16 }
+                },
+                legend: {
+                    position: chartType === 'pie' || chartType === 'doughnut' ? 'right' : 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                            
+                            if (chartType === 'pie' || chartType === 'doughnut') {
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                            return `${label}: ${value}`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    if (horizontal) {
+        config.options.indexAxis = 'y';
+    }
+    
+    if (chartType === 'pie' || chartType === 'doughnut') {
+        config.options.plugins.legend.position = 'right';
+        if (chartType === 'doughnut') {
+            config.options.cutout = '70%';
+        }
+    } else {
+        config.options.scales = {
+            y: { beginAtZero: true }
+        };
+    }
+    
+    charts[canvasId] = new Chart(ctx, config);
+}
+
+// Función para gráficos de tendencia temporal
+function createTrendChart(canvasId, property, title) {
+    const counts = countByProperty(property);
+    const sortedKeys = Object.keys(counts).sort();
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    charts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: sortedKeys,
+            datasets: [{
+                label: 'Número de Casos',
+                data: sortedKeys.map(key => counts[key]),
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    font: { size: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Casos: ${context.raw}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: { 
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Casos'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Año'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Función para histograma de edades
+function createAgeHistogram(canvasId) {
+    const ageGroups = ['0-20', '21-40', '41-60', '61-80', '81+'];
+    const counts = [0, 0, 0, 0, 0];
+    
+    cancerData.forEach(item => {
+        const age = item.age || 0;
+        if (age <= 20) counts[0]++;
+        else if (age <= 40) counts[1]++;
+        else if (age <= 60) counts[2]++;
+        else if (age <= 80) counts[3]++;
+        else counts[4]++;
+    });
+    
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    charts[canvasId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ageGroups,
+            datasets: [{
+                label: 'Número de Pacientes',
+                data: counts,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Distribución por Edad',
+                    font: { size: 16 }
+                }
+            },
+            scales: {
+                y: { 
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Pacientes'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Rango de Edad'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Función para gráficos de promedios
+function createAverageChart(canvasId, groupProperty, valueProperty, valueLabel, title) {
+    const groups = {};
+    
+    cancerData.forEach(item => {
+        const group = item[groupProperty] || 'Desconocido';
+        const value = parseFloat(item[valueProperty]) || 0;
+        
+        if (!groups[group]) {
+            groups[group] = { sum: 0, count: 0 };
+        }
+        
+        groups[group].sum += value;
+        groups[group].count++;
+    });
+    
+    const labels = Object.keys(groups);
+    const averages = labels.map(group => (groups[group].sum / groups[group].count).toFixed(2));
+    const colors = getColors(labels);
+    
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    charts[canvasId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: valueLabel,
+                data: averages,
+                backgroundColor: colors.background,
+                borderColor: colors.border,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    font: { size: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${valueLabel}: ${context.raw}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: { 
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: valueLabel
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Función para gráfico de factores de riesgo
+function createRiskFactorsChart(canvasId) {
+    const factors = ['air_pollution', 'alcohol_consumption', 'smoking', 'obesity_level'];
+    const averages = {};
+    let total = 0;
+    
+    factors.forEach(factor => {
+        const sum = cancerData.reduce((acc, item) => acc + (parseFloat(item[factor]) || 0), 0);
+        averages[factor] = (sum / cancerData.length).toFixed(2);
+    });
+    
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    charts[canvasId] = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Contaminación', 'Alcohol', 'Tabaco', 'Obesidad'],
+            datasets: [{
+                label: 'Factores de Riesgo (Promedio)',
+                data: [
+                    averages.air_pollution,
+                    averages.alcohol_consumption,
+                    averages.smoking,
+                    averages.obesity_level
+                ],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(54, 162, 235, 1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Factores de Riesgo Ambientales',
+                    font: { size: 16 }
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: { display: true },
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                }
+            }
+        }
+    });
+}
+
+// Función para gráfico de dispersión
+function createScatterChart(canvasId, xProperty, yProperty, xLabel, yLabel, title) {
+    const data = cancerData.map(item => ({
+        x: parseFloat(item[xProperty]) || 0,
+        y: parseFloat(item[yProperty]) || 0,
+        patientId: item.patient_id
+    }));
+    
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    charts[canvasId] = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: title,
+                data: data,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: title,
+                    font: { size: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const point = context.raw;
+                            return `Paciente: ${point.patientId}\n${xLabel}: ${point.x}\n${yLabel}: ${point.y}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: xLabel
+                    },
+                    beginAtZero: true
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: yLabel
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Función para contar ocurrencias por propiedad
+function countByProperty(property) {
+    const counts = {};
+    cancerData.forEach(item => {
+        const value = item[property] !== undefined && item[property] !== null ? 
+                     item[property] : 'Desconocido';
+        counts[value] = (counts[value] || 0) + 1;
+    });
+    return counts;
+}
+
+// Función para generar colores
+function getColors(labels) {
+    const background = [];
+    const border = [];
+    const colorPalette = [
+        '#6A5ACD', '#FFA500', '#4682B4', '#FF6384', '#FFCE56',
+        '#9966FF', '#4BC0C0', '#C9CBCF', '#8E44AD', '#F39C12'
+    ];
+    
+    labels.forEach((_, index) => {
+        background.push(colorPalette[index % colorPalette.length]);
+        border.push(colorPalette[index % colorPalette.length]);
+    });
+    
+    return { background, border };
+}
+    </script>
+</body>
+</html>

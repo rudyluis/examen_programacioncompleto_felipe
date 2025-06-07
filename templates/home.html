@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Centro de Investigación del Cáncer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(59, 130, 246, 0.7), rgba(29, 78, 216, 0.7));
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-red-800 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Centro de Investigación del Cáncer</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="{{ url_for('home') }}" class="hover:text-red-200">Inicio</a></li>
+                    <li><a href="{{ url_for('information') }}" class="hover:text-red-200">Información</a></li>
+                    <li><a href="{{ url_for('visualization') }}" class="hover:text-red-200">Visualización</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="hover:text-red-200">Contacto</a></li>
+                    <li><a href="{{ url_for('auth') }}" class="hover:text-red-200">Iniciar Sesión/Registrarse</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="relative bg-gradient-to-r from-blue-800 to-blue-600 text-white min-h-[80vh] flex items-center">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="container mx-auto px-4 py-20 relative z-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-serif font-bold mb-6">Centro Global de Datos de Investigación del Cáncer</h1>
+            <p class="text-lg md:text-xl mb-8 text-blue-100">
+                Empoderando la investigación global del cáncer a través de la recolección, análisis y visualización de datos para acelerar avances en la prevención y tratamiento del cáncer.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="{{ url_for('information') }}" class="px-6 py-3 bg-white text-blue-700 rounded-md font-medium hover:bg-blue-50">Aprender Más</a>
+                <a href="{{ url_for('visualization') }}" class="px-6 py-3 bg-transparent border-2 border-white text-white rounded-md font-medium hover:bg-white/10">Ver Visualizaciones de Datos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Características Principales -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-4">Nuestra Misión</h2>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-12">
+                Estamos dedicados a avanzar en la investigación del cáncer mediante la recolección global de datos, análisis y colaboración con investigadores de todo el mundo para mejorar la prevención, detección y tratamiento del cáncer.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600">ℹ️</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">Información sobre el Cáncer</h3>
+                    <p class="text-gray-600 mb-4">Información completa sobre varios tipos de cáncer, incluyendo síntomas, factores de riesgo y estrategias de prevención.</p>
+                    <a href="{{ url_for('information') }}" class="text-blue-600 font-medium hover:text-blue-700">Aprender Más</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600">📊</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">Visualización de Datos</h3>
+                    <p class="text-gray-600 mb-4">Visualizaciones interactivas de estadísticas globales del cáncer para ayudar a entender tendencias, prevalencia e impacto mundial.</p>
+                    <a href="{{ url_for('visualization') }}" class="text-blue-600 font-medium hover:text-blue-700">Ver Datos</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600">📞</span>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">Conéctate con Nosotros</h3>
+                    <p class="text-gray-600 mb-4">Contacta a nuestro equipo de expertos para consultas, colaboraciones o para contribuir a nuestros esfuerzos de investigación global.</p>
+                    <a href="{{ url_for('contact') }}" class="text-blue-600 font-medium hover:text-blue-700">Contáctanos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Llamado a la Acción -->
+    <section class="py-16 bg-gradient-to-r from-teal-600 to-blue-600 text-white text-center">
+        <h2 class="text-3xl font-serif font-bold mb-6">Únete a Nuestra Misión para Combatir el Cáncer</h2>
+        <p class="max-w-3xl mx-auto mb-8 text-blue-100">
+            Ya seas investigador, profesional de la salud o individuo preocupado, puedes contribuir a nuestros esfuerzos globales para avanzar en la investigación del cáncer y mejorar los resultados.
+        </p>
+        <a href="{{ url_for('contact') }}" class="px-6 py-3 bg-white text-blue-700 rounded-md font-medium hover:bg-blue-50">Involúcrate</a>
+    </section>
+</body>
+</html>

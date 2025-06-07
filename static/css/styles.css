@@ -1,0 +1,250 @@
+    /* Body Styling */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        background: url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for readability */
+        z-index: -1;
+    }
+
+    /* Media Query for Body */
+    @media (max-width: 768px) {
+        body {
+            font-size: 12px;
+            background-attachment: scroll;
+        }
+    }
+
+    /* Header Styling (Override .header-main) */
+    header, .header-main {
+        background-color: #ff0000 !important;
+        color: #000000 !important;
+        padding: 10px 0;
+        border-bottom: 1px solid #fff;
+        position: relative;
+        overflow: hidden;
+    }
+    header a, .header-main a {
+        color: #0000ff !important;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+    header a:hover, .header-main a:hover {
+        text-decoration: underline;
+    }
+    header .logout, .header-main .logout {
+        color: #000000 !important;
+        float: right;
+        margin-right: 20px;
+    }
+    .header-main .navbar-brand {
+        color: #000000 !important;
+        font-size: 1.5rem;
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Headings */
+    h1, h2 {
+        font-weight: 600;
+        color: #333;
+    }
+
+    /* Section Styling */
+    section {
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white for content readability */
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Card, Chart, and Stats Card Styling */
+    .card, .chart-box, .stats-card {
+        border-radius: 1rem;
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover, .chart-box:hover, .stats-card:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Stats Card */
+    .stats-card {
+        display: flex;
+        align-items: center;
+    }
+    .metric {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .variation {
+        color: #666;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs .nav-link {
+        border-radius: 0.5rem 0.5rem 0 0;
+        font-weight: 500;
+        color: #0000ff !important; /* Override to blue */
+        background-color: transparent;
+        border: none;
+        font-size: 1.2rem;
+        margin: 0 15px;
+        padding: 10px 20px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .nav-tabs .nav-link.active {
+        color: #000000 !important; /* Black for active */
+        border-bottom: 2px solid #0000ff;
+    }
+    .nav-tabs .nav-link:hover {
+        color: #000000 !important;
+        border-bottom: 2px solid #0000ff;
+    }
+
+    /* Form and Table Styling */
+    .form-select, .table {
+        border-radius: 0.5rem;
+    }
+    table.dataTable {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 0.5rem;
+    }
+    .row.g-4 > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Details Styling */
+    details summary {
+        font-weight: bold;
+        padding: 10px 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+    }
+    details[open] summary {
+        background-color: #e9ecef;
+    }
+    details {
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Chart Box Styling */
+    .chart-box {
+        padding: 1.5rem;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+    .chart-box canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+    @media (max-width: 768px) {
+        .chart-box {
+            max-height: 250px;
+        }
+    }
+    .chart-box h5 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    /* ECG Animation (Optional - Kept as per your style) */
+    .ecg-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        opacity: 0.3;
+        z-index: 0;
+    }
+    .ecg-line {
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0,20 H40 V10 H60 V30 H80 V15 H100 V25 H120 V10 H140 V30 H160 V20 H200" stroke="red" stroke-width="2" fill="none"/></svg>') repeat-x;
+        animation: moveEcg 2s linear infinite;
+    }
+    .heart {
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle at 60% 65%, red 65%, transparent 70%), radial-gradient(circle at 40% 65%, red 65%, transparent 70%);
+        border-radius: 50% 50% 0 0;
+        transform: translateY(-50%) rotate(45deg);
+    }
+    .heart::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: red;
+        border-radius: 50% 50% 0 0;
+        transform: rotate(-90deg);
+        top: -50%;
+    }
+    @keyframes moveEcg {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    /* Container and Table Responsive */
+    .container {
+        max-width: 1400px;
+    }
+    .table-responsive {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    /* Alert Styling */
+    .alert {
+        margin-bottom: 1rem;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+        background-color: #0000ff !important;
+        border-color: #0000ff !important;
+        color: #ffffff !important;
+    }
+    .btn-primary:hover {
+        background-color: #0000cc !important;
+        border-color: #0000cc !important;
+    }

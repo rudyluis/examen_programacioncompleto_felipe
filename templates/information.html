@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información - Centro de Investigación del Cáncer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-red-800 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Centro de Investigación del Cáncer</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="{{ url_for('home') }}" class="hover:text-red-200">Inicio</a></li>
+                    <li><a href="{{ url_for('information') }}" class="hover:text-red-200">Información</a></li>
+                    <li><a href="{{ url_for('visualization') }}" class="hover:text-red-200">Visualización</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="hover:text-red-200">Contacto</a></li>
+                    <li><a href="{{ url_for('auth') }}" class="hover:text-red-200">Iniciar Sesión/Registrarse</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección de Cabecera -->
+    <section class="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-5xl font-serif font-bold mb-6">Información sobre el Cáncer</h1>
+            <p class="text-lg md:text-xl mb-8 text-blue-100">
+                Aprende sobre diferentes tipos de cáncer, sus síntomas, factores de riesgo y estrategias de prevención.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección de Visión General del Cáncer -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-6">¿Qué es el Cáncer?</h2>
+            <div class="prose prose-lg text-gray-600 max-w-none">
+                <p>
+                    El cáncer es una enfermedad en la que algunas de las células del cuerpo crecen de forma descontrolada y se extienden a otras partes del cuerpo.
+                    El cáncer puede comenzar casi en cualquier parte del cuerpo humano, que está compuesto por billones de células. Normalmente, las células humanas crecen y se multiplican
+                    (a través de un proceso llamado división celular) para formar nuevas células según las necesidades del cuerpo. Cuando las células envejecen o se dañan, mueren,
+                    y nuevas células las reemplazan.
+                </p>
+                <p class="mt-4">
+                    A veces, este proceso ordenado se descompone, y las células anormales o dañadas crecen y se multiplican cuando no deberían. Estas células pueden formar tumores,
+                    que son masas de tejido. Los tumores pueden ser cancerosos o no cancerosos (benignos).
+                </p>
+                <p class="mt-4">
+                    Los tumores cancerosos se extienden a, o invaden, tejidos cercanos y pueden viajar a lugares distantes en el cuerpo para formar nuevos tumores (un proceso llamado metástasis).
+                    Los tumores cancerosos también pueden llamarse tumores malignos. Muchos cánceres forman tumores sólidos, pero los cánceres de la sangre, como las leucemias, generalmente no lo hacen.
+                </p>
+                <p class="mt-4">
+                    Los tumores benignos no se extienden a, ni invaden, tejidos cercanos. Cuando se extirpan, los tumores benignos normalmente no vuelven a crecer, mientras que los tumores cancerosos a veces sí.
+                    Los tumores benignos a veces pueden ser bastante grandes, sin embargo. Algunos pueden causar síntomas graves o ser potencialmente mortales, como los tumores benignos en el cerebro.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Historia de la Investigación del Cáncer -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-6">Historia de la Investigación del Cáncer</h2>
+            <div class="prose prose-lg text-gray-600 max-w-none">
+                <p>
+                    La historia de la investigación del cáncer se remonta a tiempos antiguos. La descripción más antigua conocida del cáncer aparece en siete papiros, descubiertos y descifrados
+                    a finales del siglo XIX. Estos proporcionaron el primer conocimiento directo de la práctica médica egipcia. Dos de ellos, conocidos como los papiros "Edwin Smith" y "George Ebers",
+                    contienen descripciones de cáncer escritas alrededor del 1600 a.C., y se cree que datan de fuentes tan antiguas como el 2500 a.C.
+                </p>
+                <p class="mt-4">
+                    El médico griego Hipócrates (460-370 a.C.), considerado el "Padre de la Medicina", usó los términos "carcinos" y "carcinoma" para describir tumores que no forman úlceras
+                    y tumores que sí las forman. En griego, estas palabras se refieren a un cangrejo, probablemente aplicadas a la enfermedad porque las proyecciones en forma de dedos que se extienden desde un cáncer
+                    recuerdan la forma de un cangrejo.
+                </p>
+                <p class="mt-4">
+                    La era moderna de la investigación del cáncer comenzó en el siglo XIX con el desarrollo del microscopio, que permitió a los científicos examinar tejidos y células en detalle.
+                    Esto llevó al descubrimiento de que los cánceres están compuestos por células que han perdido la capacidad de madurar en tipos de células especializadas y, en cambio, proliferan de forma descontrolada.
+                </p>
+                <p class="mt-4">
+                    En el siglo XX, los descubrimientos sobre la estructura y función del ADN revolucionaron nuestra comprensión del cáncer. Ahora sabemos que el cáncer es causado por cambios en los genes
+                    que controlan la forma en que funcionan nuestras células, especialmente cómo crecen y se dividen. Estos cambios genéticos pueden heredarse de nuestros padres, pero más a menudo surgen durante
+                    la vida de una persona como resultado de errores que ocurren cuando las células se dividen o por daño al ADN causado por ciertas exposiciones ambientales.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Tipos de Cáncer -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-6">Tipos de Cáncer</h2>
+            <div class="relative mb-8">
+                <input type="text" id="searchTerm" placeholder="Buscar tipos de cáncer..." class="pl-10 pr-4 py-3 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-gray-400">🔍</span>
+                </div>
+            </div>
+            <div id="cancerTypes" class="space-y-6">
+                <p class="text-center text-gray-500">Ingresa un tipo de cáncer en el buscador para ver más información.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Prevención -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-6">Prevención del Cáncer</h2>
+            <div class="prose prose-lg text-gray-600 max-w-none">
+                <p>
+                    Aunque no todos los cánceres pueden prevenirse, hay pasos que puedes tomar para reducir tu riesgo. La investigación ha demostrado que las elecciones de estilo de vida saludable y ciertas medidas preventivas pueden reducir significativamente tus posibilidades de desarrollar cáncer.
+                </p>
+                <h3 class="text-xl font-serif font-bold text-gray-800 mt-6 mb-3">Factores de Estilo de Vida</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Evita el uso de tabaco y la exposición al humo de segunda mano</li>
+                    <li>Mantén un peso saludable y permanece físicamente activo</li>
+                    <li>Come una dieta saludable rica en frutas, verduras y granos integrales</li>
+                    <li>Limita el consumo de alcohol</li>
+                    <li>Protégete del sol y evita las camas de bronceado</li>
+                    <li>Vacúnate contra ciertos virus que pueden causar cáncer (como VPH y Hepatitis B)</li>
+                </ul>
+                <h3 class="text-xl font-serif font-bold text-gray-800 mt-6 mb-3">Detección y Diagnóstico Temprano</h3>
+                <p>
+                    Los exámenes regulares y las revisiones pueden ayudar a detectar el cáncer temprano, cuando el tratamiento tiene más probabilidades de ser exitoso. Habla con tu proveedor de atención médica sobre qué exámenes son apropiados para ti según tu edad, género, historial familiar y factores de riesgo.
+                </p>
+                <p class="mt-4">
+                    Los exámenes comunes de cáncer incluyen:
+                </p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Mamografías para el cáncer de mama</li>
+                    <li>Pruebas de Papanicolaou y pruebas de VPH para el cáncer cervical</li>
+                    <li>Colonoscopias, sigmoidoscopias o pruebas de heces para el cáncer colorrectal</li>
+                    <li>Escaneos de TC de baja dosis para el cáncer de pulmón en individuos de alto riesgo</li>
+                    <li>Pruebas de PSA para el cáncer de próstata</li>
+                    <li>Exámenes de piel para el cáncer de piel</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const cancerTypes = [
+            {
+                name: "Leucemia",
+                description: `
+                    <p><strong>Definición:</strong> La leucemia es un tipo de cáncer que afecta las células de la sangre y la médula ósea, donde se producen las células sanguíneas. Se caracteriza por un aumento anormal de glóbulos blancos inmaduros, que interfieren con la producción de glóbulos rojos, plaquetas y glóbulos blancos sanos.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Incluyen exposición a radiaciones ionizantes (como radioterapia previa), ciertos productos químicos (como el benceno), antecedentes familiares de leucemia, trastornos genéticos (como el síndrome de Down) y el tabaquismo.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Fatiga extrema, infecciones frecuentes, fiebre, hematomas o sangrado fácil (como sangrado nasal o encías), pérdida de peso inexplicada, dolor óseo y ganglios linfáticos inflamados.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> No hay una forma específica de prevenir la leucemia, pero evitar la exposición a productos químicos tóxicos y radiaciones puede reducir el riesgo. La detección temprana se basa en estar atento a los síntomas y realizar análisis de sangre si hay sospechas, especialmente en personas con factores de riesgo.</p>
+                `
+            },
+            {
+                name: "Cáncer de Pulmón",
+                description: `
+                    <p><strong>Definición:</strong> El cáncer de pulmón se origina en los tejidos de los pulmones, generalmente en las células que recubren los bronquios. Existen dos tipos principales: cáncer de pulmón de células no pequeñas (el más común) y cáncer de pulmón de células pequeñas.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> El tabaquismo es el principal factor de riesgo, responsable de la mayoría de los casos. Otros factores incluyen exposición al humo de segunda mano, radón, asbesto, contaminación del aire y antecedentes familiares de cáncer de pulmón.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Tos persistente (a veces con sangre), dificultad para respirar, dolor torácico, pérdida de peso, ronquera y fatiga. En etapas avanzadas, puede haber dolor óseo o síntomas neurológicos si se propaga.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Dejar de fumar y evitar la exposición al humo de segunda mano son clave. Las pruebas de detección, como tomografías computarizadas de baja dosis, se recomiendan para personas de alto riesgo (fumadores mayores de 55 años con historial significativo).</p>
+                `
+            },
+            {
+                name: "Cáncer de Mama",
+                description: `
+                    <p><strong>Definición:</strong> El cáncer de mama se desarrolla en las células del tejido mamario, generalmente en los conductos o lobulillos. Es uno de los cánceres más comunes en mujeres, aunque también puede afectar a hombres.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Ser mujer, edad avanzada, antecedentes familiares (especialmente mutaciones en genes BRCA1 y BRCA2), obesidad, consumo de alcohol, terapia hormonal postmenopáusica y no haber tenido hijos o tener el primer hijo después de los 30 años.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Bulto o masa en la mama o axila, cambio en el tamaño o forma de la mama, secreción del pezón (especialmente con sangre), piel de la mama con apariencia de "piel de naranja", enrojecimiento o dolor persistente.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Realizar mamografías regulares a partir de los 40 años (o antes si hay riesgo elevado), autoexámenes mensuales y mantener un estilo de vida saludable (controlar el peso, reducir el alcohol). La detección temprana mejora significativamente las tasas de supervivencia.</p>
+                `
+            },
+            {
+                name: "Cáncer de Colon",
+                description: `
+                    <p><strong>Definición:</strong> También conocido como cáncer colorrectal, se origina en el colon o el recto, generalmente a partir de pólipos (crecimientos) que se vuelven malignos con el tiempo.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Edad avanzada (mayor de 50 años), antecedentes familiares de cáncer colorrectal, enfermedades inflamatorias intestinales (como colitis ulcerosa), dieta alta en carnes rojas o procesadas, obesidad, tabaquismo y sedentarismo.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Cambios en los hábitos intestinales (diarrea o estreñimiento persistente), sangre en las heces, dolor abdominal, pérdida de peso inexplicada, fatiga y sensación de que el intestino no se vacía completamente.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Realizar colonoscopias a partir de los 50 años (o antes si hay riesgo), mantener una dieta rica en fibra, reducir el consumo de carnes procesadas y mantener un peso saludable. La detección de pólipos precancerosos puede prevenir el desarrollo del cáncer.</p>
+                `
+            },
+            {
+                name: "Cáncer de Piel",
+                description: `
+                    <p><strong>Definición:</strong> El cáncer de piel se desarrolla en las células de la piel, siendo los tipos más comunes el carcinoma basocelular, el carcinoma de células escamosas y el melanoma, este último el más peligroso.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Exposición prolongada a rayos UV (sol o camas de bronceado), piel clara, antecedentes de quemaduras solares, múltiples lunares, antecedentes familiares de melanoma y sistema inmunológico debilitado.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Cambios en la piel como lunares asimétricos, con bordes irregulares, colores variados, diámetro mayor a 6 mm o que cambian con el tiempo (regla ABCDE para melanoma). También pueden aparecer llagas que no cicatrizan o manchas escamosas.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Usar protector solar (FPS 30 o superior), evitar la exposición al sol entre las 10 a.m. y 4 p.m., usar ropa protectora y evitar camas de bronceado. Realizar autoexámenes regulares de la piel y consultar a un dermatólogo ante cambios sospechosos.</p>
+                `
+            },
+            {
+                name: "Cáncer de Cuello Uterino",
+                description: `
+                    <p><strong>Definición:</strong> Este cáncer se origina en el cuello uterino, la parte inferior del útero que conecta con la vagina. Está fuertemente relacionado con el virus del papiloma humano (VPH).</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Infección por VPH (especialmente tipos 16 y 18), múltiples parejas sexuales, inicio temprano de actividad sexual, tabaquismo, sistema inmunológico debilitado (como en personas con VIH) y no realizarse pruebas de detección regulares.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Sangrado vaginal anormal (entre períodos, después del sexo o postmenopausia), dolor pélvico, dolor durante las relaciones sexuales y flujo vaginal inusual.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Vacunarse contra el VPH (idealmente entre los 9 y 26 años), realizarse pruebas de Papanicolaou y pruebas de VPH a partir de los 21 años, practicar sexo seguro y evitar el tabaquismo. La detección temprana puede prevenir la progresión del cáncer.</p>
+                `
+            },
+            {
+                name: "Cáncer de Próstata",
+                description: `
+                    <p><strong>Definición:</strong> El cáncer de próstata se desarrolla en la glándula prostática, que produce parte del líquido seminal en los hombres. Es uno de los cánceres más comunes en hombres.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Edad avanzada (mayor de 50 años), antecedentes familiares de cáncer de próstata, raza (más común en hombres afrodescendientes), dieta alta en grasas y obesidad.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Dificultad para orinar, flujo urinario débil, sangre en la orina o semen, dolor pélvico, disfunción eréctil y dolor óseo (en etapas avanzadas).</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Realizar pruebas de PSA (antígeno prostático específico) y exámenes rectales digitales a partir de los 50 años (o antes si hay riesgo). Mantener una dieta baja en grasas y rica en frutas y verduras puede ayudar a reducir el riesgo.</p>
+                `
+            },
+            {
+                name: "Cáncer de Hígado",
+                description: `
+                    <p><strong>Definición:</strong> El cáncer de hígado, o carcinoma hepatocelular, se origina en las células del hígado. A menudo está relacionado con enfermedades hepáticas crónicas como la cirrosis o la hepatitis.</p>
+                    <p class="mt-2"><strong>Factores de Riesgo:</strong> Infecciones crónicas por hepatitis B o C, cirrosis (a menudo causada por abuso de alcohol), enfermedad del hígado graso no alcohólico, exposición a aflatoxinas (toxinas en alimentos contaminados), diabetes y obesidad.</p>
+                    <p class="mt-2"><strong>Síntomas:</strong> Dolor abdominal en la parte superior derecha, pérdida de peso inexplicada, ictericia (piel y ojos amarillos), hinchazón abdominal, fatiga y pérdida de apetito.</p>
+                    <p class="mt-2"><strong>Prevención y Detección Temprana:</strong> Vacunarse contra la hepatitis B, tratar la hepatitis C, limitar el consumo de alcohol, mantener un peso saludable y evitar alimentos contaminados con aflatoxinas. Las personas con alto riesgo (como cirrosis) deben realizarse ecografías y pruebas de alfa-fetoproteína regularmente.</p>
+                `
+            }
+        ];
+
+        const searchTermInput = document.getElementById('searchTerm');
+        const cancerTypesDiv = document.getElementById('cancerTypes');
+
+        function filterCancerTypes() {
+            const searchTerm = searchTermInput.value.trim().toLowerCase();
+            // Only filter and display results if the search term is not empty
+            if (searchTerm === '') {
+                cancerTypesDiv.innerHTML = '<p class="text-center text-gray-500">Ingresa un tipo de cáncer en el buscador para ver más información.</p>';
+                return;
+            }
+
+            const filtered = cancerTypes.filter(type =>
+                type.name.toLowerCase().includes(searchTerm) || type.description.toLowerCase().includes(searchTerm)
+            );
+
+            cancerTypesDiv.innerHTML = filtered.length > 0
+                ? filtered.map(type => `<div class="bg-white p-4 rounded-lg shadow-md"><h3 class="font-bold text-lg text-gray-800">${type.name}</h3><div class="text-gray-600 mt-2">${type.description}</div></div>`).join('')
+                : '<p class="text-center text-gray-500">No se encontraron tipos de cáncer que coincidan con tu búsqueda.</p>';
+        }
+
+        // Initialize with the default message (no results shown until search)
+        filterCancerTypes();
+
+        // Update results on input
+        searchTermInput.addEventListener('input', filterCancerTypes);
+    </script>
+</body>
+</html>
