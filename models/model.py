@@ -8,7 +8,7 @@ from models.base import engine
 Base = declarative_base()
 
 class Usuario(Base, UserMixin):
-    __tablename__ = 'Usuario'
+    __tablename__ = 'usuarios'
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
